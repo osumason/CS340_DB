@@ -1,0 +1,89 @@
+<!-- 
+Vendors.html by Mason Antram 
+loadVendors function provided by Google Gemini 5/28/26
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vendors</title>
+    <link rel="stylesheet" href="./App.css">
+</head>
+
+
+  <body>
+    <nav class="navBar">
+      <a href="/"> Home </a>
+      <a href="/Customers.html"> Customers </a>
+      <a href="/Vendors.html"> Vendors </a>
+      <a href="/Products.html"> Products </a>
+      <a href="/Orders.html"> Orders </a>
+      <a href="/AddOrderDetails.html"> Add Order Details </a>
+    </nav>
+
+    <div class="page">
+      <h2>Current Vendors</h2>
+      <table id = "DBtable">
+        <thead>
+          <tr style="background-color: #f2f2f2;">
+            <th>ID</th>
+            <th>Vendor Name</th>
+            <th>Contact Email</th>
+            <th>Phone Number</th>
+          </tr>
+        </thead>
+        <tbody id="vendorsTableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="page">
+      <h2>Add Vendor</h2>
+      <form class="form" action="/Vendors" method="POST">
+        <label>Name: <input type="text" name="vendorName" /></label>
+        <label>Phone Number: <input type="text" name="phoneNumber" /></label>
+        <label>Email: <input type="email" name="contactEmail" /></label>
+        <button type="submit" class="submitButton">Add Vendor</button>
+      </form>
+    </div>
+
+
+    <div class="page">
+      <h2>Update Vendor</h2>
+       <p> The goal will be to allow searching of records by ID or name </p>   
+      <form class="form" action="/Vendors" method="POST">
+        <label>New Name: <input type="text" name="vendorName" /></label>
+        <label>New Phone Number: <input type="text" name="phoneNumber" /></label>
+        <label>New Email: <input type="email" name="contactEmail" /></label>
+        <button type="submit" class="submitButton">Update Vendor</button>
+      </form>
+    </div>
+
+
+    <div class="page">
+      <h2>Delete Vendor</h2>
+    <p class="adminInstruction"> Dropdowns and warning message incoming </p>
+      <form class="form" action="/Vendors" method="DELETE">
+        <label>Vendor ID: <input type="text" name="vendorID" /></label>
+        <label>Name: <input type="text" name="vendorName" /></label>
+        <button type="submit" class="deleteButton">Delete Vendor</button>
+      </form>
+    </div>
+
+    <script>
+      async function loadVendors() {
+        const response = await fetch('/api/vendors');
+        const vendors = await response.json();
+        const tbody = document.getElementById('vendorsTableBody');
+        tbody.innerHTML = '';
+        vendors.forEach(v => {
+          tbody.innerHTML += `<tr><td>${v.vendorID}</td><td>${v.vendorName}</td><td>${v.contactEmail || 'N/A'}</td><td>${v.phoneNumber || 'N/A'}</td></tr>`;
+        });
+      }
+      window.addEventListener('DOMContentLoaded', loadVendors);
+    </script>
+
+  </body>
+</html>

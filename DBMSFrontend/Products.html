@@ -1,0 +1,94 @@
+<!--
+Products.html by Mason Antram 
+loadProducts function provided by Google Gemini 5/28/26
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <link rel="stylesheet" href="./App.css">
+  </head>
+
+  <body>
+    <nav class="navBar">
+      <a href="/"> Home </a>
+      <a href="/Customers.html"> Customers </a>
+      <a href="/Vendors.html"> Vendors </a>
+      <a href="/Products.html"> Products </a>
+      <a href="/Orders.html"> Orders </a>
+      <a href="/AddOrderDetails.html"> Add Order Details </a>
+    </nav>
+
+    <div class="page">
+      <h2>Current Products</h2>
+      <table id = "DBtable">
+        <thead>
+          <tr style="background-color: #f2f2f2;">
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Department</th>
+            <th>Price</th>
+            <th>Stock Qty</th>
+            <th>Vendor ID</th>
+          </tr>
+        </thead>
+        <tbody id="productsTableBody"></tbody>
+      </table>
+    </div>
+
+
+
+    <div class="page">
+      <h2>Add Product</h2>
+      <form class="form" action="/Products" method="POST">
+        <label>Product Name: <input type="text" name="productName" /></label>
+        <label>Price: <input type="number" name="price" /></label>
+        <label>Vendor ID: <input type="number" name="vendorID" /></label>
+        <button type="submit" class="submitButton">Add Product</button>
+      </form>
+    </div>
+
+
+    <div class="page">
+      <h2>Update Product</h2>
+      <p> The goal will be to allow searching of records by ID or name </p>   
+      <form class="form" action="/Products" method="POST">
+        <label>New Name: <input type="text" name="productName" /></label>
+        <label>New Department: <input type="text" name="department" /></label>
+        <label>New Price: <input type="number" name="price" /></label>
+        <label>New Quantity: <input type="number" name="stockQuantity" /></label>
+        <button type="submit" class="submitButton">Update Product</button>
+      </form>
+    </div>
+
+
+    <div class="page">
+      <h2>Delete Product</h2>
+      <p class="adminInstruction"> Dropdowns and warning message incoming </p>
+      <form class="form" action="/Products" method="DELETE">
+        <label>Product ID: <input type="number" name="productID" /></label>
+        <label>Name: <input type="text" name="productName" /></label>
+        <button type="submit" class="deleteButton">Delete Product</button>
+      </form>
+    </div>
+
+    <script>
+      async function loadProducts() {
+        const response = await fetch('/api/products');
+        const products = await response.json();
+        const tbody = document.getElementById('productsTableBody');
+        tbody.innerHTML = '';
+        products.forEach(p => {
+          tbody.innerHTML += `<tr><td>${p.productID}</td><td>${p.productName}</td><td>${p.department}</td><td>$${p.price}</td><td>${p.stockQuantity}</td><td>${p.vendorID}</td></tr>`;
+        });
+      }
+      window.addEventListener('DOMContentLoaded', loadProducts);
+    </script>
+
+
+  </body>
+</html>

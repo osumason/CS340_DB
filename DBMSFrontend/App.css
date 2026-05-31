@@ -1,0 +1,196 @@
+/* 
+App.css by Mason Antram 
+Page element IDs determined by Mason, 
+initial stylistic choices determined by Google Gemini,
+revisions by Mason.
+*/
+
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Base style for content wrappers */
+.page {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.page h2 {
+  color: #2c3e50;
+  margin-top: 0;
+  border-bottom: 2px solid #edf2f7;
+  padding-bottom: 0.5rem;
+}
+
+.page p {
+  color: #718096;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   ========================================================================== */
+.navBar {
+  display: flex;    
+  justify-content: center;     
+  gap: 2rem;         
+  padding: 1.2rem;
+  background-color: #2c3e50;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navBar a {
+  text-decoration: none; 
+  color: #edf2f7;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navBar a:hover {
+  color: #3498db;
+  text-decoration: none; 
+}
+
+/* ==========================================================================
+   DATABASE TABLES (#DBtable)
+   ========================================================================== */
+#DBtable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+#DBtable th {
+  background-color: #f1f5f9 !important; /* Overrides the old inline gray block safely */
+  color: #4a5568;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+#DBtable td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #edf2f7;
+  color: #2d3748;
+}
+
+/* Subtle row striping */
+#DBtable tbody tr:nth-of-type(even) {
+  background-color: #f8fafc;
+}
+
+/* Hover effect to track data lines easily */
+#DBtable tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+/* ==========================================================================
+   FORMS & LAYOUT ELEMENTS
+   ========================================================================== */
+
+.adminInstruction {
+  background-color: #f8fafc;        /* Soft gray-blue background */
+  color: #475569;                   /* Slate gray text */
+  border-left: 4px solid #64748b;   /* Solid slate accent bar */
+  padding: 12px 16px;
+  margin: 1rem auto 1.5rem auto;
+  max-width: 500px;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Automatically injects an info icon at the beginning of the text */
+.admin-instruction::before {
+  content: "ℹ️";
+  font-size: 1.1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+/* Form inputs styling */
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-weight: 500;
+  color: #4a5568;
+  width: 100%;
+}
+
+.form input {
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* ==========================================================================
+   BUTTON VARIATIONS
+   ========================================================================== */
+/* Base Shared Button Reset */
+.submitButton, .deleteButton, #resetDbButton {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  text-align: center;
+}
+
+.submitButton:active, .deleteButton:active, #resetDbButton:active {
+  transform: scale(0.98);
+}
+
+/* Standard Action (Create / Update / Blue) */
+.submitButton {
+  background-color: #3498db;
+  color: white;
+}
+
+.submitButton:hover {
+  background-color: #2980b9;
+}
+
+/* Destructive Action (Delete / Danger Red) */
+.deleteButton, #resetDbButton {
+  background-color: #e74c3c !important; /* Overrides inline attributes smoothly */
+  color: white !important;
+}
+
+.deleteButton:hover, #resetDbButton:hover {
+  background-color: #c0392b !important;
+}
