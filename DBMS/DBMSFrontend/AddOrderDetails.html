@@ -1,0 +1,39 @@
+<!--
+AddOrderDetails.html by Mason Antram 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Order Details</title>
+    <link rel="stylesheet" href="./App.css">
+  </head>
+
+  
+  <body>
+    <nav class="navBar">
+      <a href="/"> Home </a>
+      <a href="/Customers.html"> Customers </a>
+      <a href="/Vendors.html"> Vendors </a>
+      <a href="/Products.html"> Products </a>
+      <a href="/Orders.html"> Orders </a>
+      <a href="/AddOrderDetails.html"> Add Order Details </a>
+    </nav>
+
+
+    <div class="page">
+      <h2>Add Order Details</h2>
+      <p>Since this is a transaction record, we don't want it to be modifiable</p>
+      <form class="form" action="/AddOrderDetails" method="POST">
+        <label>Order ID: <input type="number" name="orderID" /></label>
+        <label>Product ID: <input type="number" name="productID" /></label>
+        <label>Quantity: <input type="number" name="quantity" /></label>
+        <button type="submit" class="submitButton">Add Order Details</button>
+      </form>
+    </div>
+
+
+  </body>
+</html>
