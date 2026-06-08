@@ -53,19 +53,18 @@ Had a heck of a time populating table data and resetting the table
 
   <div class="page">
     <h2>Update Customer</h2>
-    <p> The goal will be to allow searching of records by ID or name </p>
     <form class="form" id="updateCustomerForm">
-      <label>Customer ID: <input type="text" name="customerID" /></label>
-      <label>New Full Name: <input type="text" name="customerName" required /></label>
-      <label>New Phone Number: <input type="text" name="phoneNumber" /></label>
-      <label>New Email: <input type="email" name="email" /></label>
+      <label>Customer ID: <input type="text" id="updateID" name="customerID" /></label>
+      <label>New Full Name: <input type="text" id="updateName" name="customerName" required /></label>
+      <label>New Phone Number: <input type="text" id="updatePhone" name="phoneNumber" /></label>
+      <label>New Email: <input type="email" id="updateEmail" name="email" /></label>
       <button type="submit" class="submitButton">Update Customer</button>
     </form>
+     <p id="updateMessage" style="margin-top: 12px; font-weight: bold; text-align: center;"></p>
   </div>
 
   <div class="page">
     <h2>Delete Customer</h2>
-    <p class="adminInstruction"> Dropdowns and warning message incoming </p>
     <form class="form" id="deleteCustomerForm">
       <label>Customer ID: <input type="number" name="customerID" id="deleteID" required /></label>
       <button type="submit" class="deleteButton">Delete Customer</button>
@@ -102,6 +101,11 @@ Had a heck of a time populating table data and resetting the table
         tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red; padding: 10px;">❌ Failed to reach backend API. Check node server logs.</td></tr>`;
       }
     }
+
+    // INITIALIZE event listener
+    window.addEventListener('DOMContentLoaded', loadCustomers);
+
+
     // CREATE event listener
     document.getElementById('addCustomerForm').addEventListener('submit', async (e) => {
       e.preventDefault(); // Prevents the browser from reloading the page!
@@ -147,10 +151,44 @@ Had a heck of a time populating table data and resetting the table
       }
     });
 
+     // UPDATE event listener
+    document.getElementById('updateCustomerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msgElement = document.getElementById('updateMessage');
+      msgElement.innerText = '';
+ 
+      const customerID = document.getElementById('updateID').value;
+      const customerData = {
+        customerName: document.getElementById('updateName').value,
+        phoneNumber: document.getElementById('updatePhone').value,
+        email: document.getElementById('updateEmail').value
+      };
+ 
+      try {
+        const response = await fetch(`/api/customers/${customerID}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(customerData)
+        });
+        const result = await response.json();
+ 
+        if (response.ok) {
+          msgElement.style.color = '#5cb85c';
+          msgElement.innerText = `✅ Success: Customer ${customerID} updated!`;
+          document.getElementById('updateCustomerForm').reset();
+          await loadCustomers();
+        } else {
+          msgElement.style.color = '#d9534f';
+          msgElement.innerText = `❌ Error: ${result.error || 'Could not update record.'}`;
+        }
+      } catch (err) {
+        msgElement.style.color = '#d9534f';
+        msgElement.innerText = '❌ Network request failed to communicate with server.';
+      }
+    });
+    
 
-
-
-    // 2. DELETE: Cleaned up single submission event handler to call stored procedure
+    // DELETE event listener
     document.getElementById('deleteCustomerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const customerID = document.getElementById('deleteID').value;
@@ -178,8 +216,6 @@ Had a heck of a time populating table data and resetting the table
       }
     });
 
-    // 3. INITIALIZE: Fetch data right away when window is open
-    window.addEventListener('DOMContentLoaded', loadCustomers);
   </script>
 </body>
 
