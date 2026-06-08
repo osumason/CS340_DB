@@ -45,9 +45,10 @@ loadProducts function provided by Google Gemini 5/28/26
     <div class="page" id="addProductForm">
       <h2>Add Product</h2>
       <form class="form" action="/Products" method="POST">
-        <label>Product Name: <input type="text" name="productName" /></label>
-        <label>Price: <input type="number" name="price" /></label>
-        <label>Vendor ID: <input type="number" name="vendorID" /></label>
+        <label>Product Name: <input type="text" id="addName" name="productName" /></label>
+        <label>Department: <input type="text" id="addDepartment" name="department" /></label>
+        <label>Price: <input type="number"id="addPrice" name="price" /></label>
+        <label>Vendor ID: <input type="number" id="addVendorID" name="vendorID" /></label>
         <button type="submit" class="submitButton">Add Product</button>
       </form>
     </div>
@@ -55,12 +56,12 @@ loadProducts function provided by Google Gemini 5/28/26
 
     <div class="page" id="updateProductForm">
       <h2>Update Product</h2>
-      <p> The goal will be to allow searching of records by ID or name </p>   
       <form class="form" action="/Products" method="POST">
-        <label>New Name: <input type="text" name="productName" /></label>
-        <label>New Department: <input type="text" name="department" /></label>
-        <label>New Price: <input type="number" name="price" /></label>
-        <label>New Quantity: <input type="number" name="stockQuantity" /></label>
+        <label>Product ID: <input type="number" name="productID" /></label>
+        <label>New Name: <input type="text" id="updateName" name="productName" /></label>
+        <label>New Department: <input type="text" id="updateDepartment" name="department" /></label>
+        <label>New Price: <input type="number" id="updatePrice" name="price" /></label>
+        <label>New Quantity: <input type="number" id="updateQuantity" name="stockQuantity" /></label>
         <button type="submit" class="submitButton">Update Product</button>
       </form>
     </div>
@@ -70,8 +71,8 @@ loadProducts function provided by Google Gemini 5/28/26
       <h2>Delete Product</h2>
       <p class="adminInstruction"> Dropdowns and warning message incoming </p>
       <form class="form" action="/Products" method="DELETE">
-        <label>Product ID: <input type="number" name="productID" /></label>
-        <label>Name: <input type="text" name="productName" /></label>
+        <label>Product ID: <input type="number" id="deleteID" name="productID" /></label>
+        <label>Name: <input type="text"  name="productName" /></label>
         <button type="submit" class="deleteButton">Delete Product</button>
       </form>
     </div>

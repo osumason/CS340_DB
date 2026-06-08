@@ -27,14 +27,113 @@ Orders.html by Mason Antram
 
     <div class="page" id="addOrderForm">
       <h2>Add Order</h2>
-      <p>Since this is a transaction record, we don't want it to be modifiable</p>
-      <form class="form" action="/Orders" method="POST">
-        <label>Order Date: <input type="date" name="orderDate" /></label>
-        <label>Total Cost: <input type="number" name="totalCost" /></label>
-        <label>Customer ID: <input type="number" name="customerID" /></label>
-        <button type="submit" class="submitButton">Add Order</button>
-      </form>
-    </div>
+      <p>Transaction record: CREATE fuctionality only</p>
+      <form class="form" id="addOrderForm">
+        <label>Customer:
+        <select id="addCustomerID" name="customerID" required>
+          <option value="">-- Select a Customer --</option>
+        </select>
+      </label>
+      <label>Order Date: <input type="date" id="addOrderDate" name="orderDate" required /></label>
+      <label>Total Cost: <input type="number" step="0.01" id="addTotalCost" name="totalCost" required /></label>
+      <button type="submit" class="submitButton">Add Order</button>
+    </form>
+    <p id="addMessage" style="margin-top: 12px; font-weight: bold; text-align: center;"></p>
+  </div>
+
+<script>
+    // READ: load and display all orders
+    async function loadOrders() {
+      try {
+        const response = await fetch('/api/orders');
+        const orders = await response.json();
+        const tbody = document.getElementById('ordersTableBody');
+        tbody.innerHTML = '';
+ 
+        if (!orders || orders.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red; padding: 10px;">⚠️ No database records found. Go to Home page and click Reset Database.</td></tr>`;
+          return;
+        }
+ 
+        orders.forEach(o => {
+          tbody.innerHTML += `
+            <tr>
+              <td style="padding: 8px;">${o.orderID}</td>
+              <td style="padding: 8px;">${o.customerName}</td>
+              <td style="padding: 8px;">${o.orderDate}</td>
+              <td style="padding: 8px;">$${parseFloat(o.totalCost).toFixed(2)}</td>
+            </tr>
+          `;
+        });
+      } catch (err) {
+        console.error("❌ Network Error loading table data:", err);
+        const tbody = document.getElementById('ordersTableBody');
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red; padding: 10px;">❌ Failed to reach backend API. Check node server logs.</td></tr>`;
+      }
+    }
+ 
+    // DROPDOWN: populate customer select for add form
+    async function loadCustomerDropdown() {
+      try {
+        const response = await fetch('/api/customers/dropdown');
+        const customers = await response.json();
+        const select = document.getElementById('addCustomerID');
+ 
+        customers.forEach(c => {
+          const option = document.createElement('option');
+          option.value = c.customerID;
+          option.textContent = c.customerName;
+          select.appendChild(option);
+        });
+      } catch (err) {
+        console.error("❌ Error loading customer dropdown:", err);
+      }
+    }
+ 
+    // CREATE
+    document.getElementById('addOrderForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msgElement = document.getElementById('addMessage');
+      msgElement.innerText = '';
+ 
+      const orderData = {
+        customerID: document.getElementById('addCustomerID').value,
+        orderDate: document.getElementById('addOrderDate').value,
+        totalCost: document.getElementById('addTotalCost').value
+      };
+ 
+      try {
+        const response = await fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData)
+        });
+        const result = await response.json();
+ 
+        if (response.ok) {
+          msgElement.style.color = '#5cb85c';
+          msgElement.innerText = `✅ Success: Order added successfully!`;
+          document.getElementById('addOrderForm').reset();
+          // Re-add the placeholder after reset clears the select
+          document.getElementById('addCustomerID').innerHTML = '<option value="">-- Select a Customer --</option>';
+          await loadCustomerDropdown();
+          await loadOrders();
+        } else {
+          msgElement.style.color = '#d9534f';
+          msgElement.innerText = `❌ Error: ${result.error || 'Could not save record.'}`;
+        }
+      } catch (err) {
+        msgElement.style.color = '#d9534f';
+        msgElement.innerText = '❌ Network request failed to communicate with server.';
+      }
+    });
+ 
+    // INITIALIZE
+    window.addEventListener('DOMContentLoaded', () => {
+      loadOrders();
+      loadCustomerDropdown();
+    });
+  </script>
 
 
   </body>
