@@ -260,3 +260,11 @@ Citations below mirror the headers in each source file. Non-original work is lab
 1) Scope: Project overview, database design, features, and file descriptions
 2) Date: Spring 2026
 3) Originality: Original work by Swathi Pappoppula and Mason Antram
+
+---
+
+**AI Citation**
+1) Scope: Helped update per-file citation entries to include scope
+2) Date: June 2026
+3) Originality: Adapted with Cursor AI assistance
+4) Source: https://cursor.com
