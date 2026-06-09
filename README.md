@@ -96,8 +96,6 @@ The system demonstrates full CRUD functionality across multiple related entities
 
 ## Citations 
 
-This project is based on the Oregon State University CS340 Starter Application and has been modified for the requirements of this project.
-
 ### Adapted from CS340 Starter Code
 
 * Express server structure
@@ -115,7 +113,7 @@ This project is based on the Oregon State University CS340 Starter Application a
 * Database reset functionality
 * Initial CSS styling suggestions
 
-### ChatGPT (OpenAI) (June 2026) 
+### ChatGPT (June 2026) 
 * Used to suggest improvements to the organization and presentation of the README. 
 
 All project implementation, database design, SQL code, application logic, and technical content remain the work of the project team unless otherwise cited.
