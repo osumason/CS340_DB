@@ -1,0 +1,76 @@
+<!-- 
+index.html 
+By Mason Antram and Swathi Pappoppula
+
+Sources cited:
+   - Google Gemini: table wipe script
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mister Rogers' Mercantile</title>
+    <link rel="stylesheet" href="./App.css">
+  </head>
+
+  
+  <body>
+    <nav class="navBar">
+      <a href="/"> Home </a>
+      <a href="/Customers.html"> Customers </a>
+      <a href="/Vendors.html"> Vendors </a>
+      <a href="/Products.html"> Products </a>
+      <a href="/Orders.html"> Orders </a>
+      <a href="/AddOrderDetails.html"> Add Order Details </a>
+    </nav>
+
+    <h2>Mr. Rogers's Mercantile</h2>
+    <p>Relationship Management and Inventory Control</p>
+
+    <div class="page">
+      <h3>Admin Database Tools</h3>
+      <p class="adminInstruction">*Works!* Click below to reset all database tables to their original schema and sample data.</p>
+      <button id="resetDbButton" class="submitButton" style="background-color: #d9534f; color: white; padding: 10px 20px; font-size: 1rem; cursor: pointer;">🔄 Reset Database</button>
+
+      <p id="resetStatus" style="margin-top: 15px; font-weight: bold; font-size: 1.1rem;"></p>
+    </div>
+
+   <script>
+      // Wrapped in DOMContentLoaded to ensure the button renders before JS grabs it
+      window.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('resetDbButton');
+        const statusText = document.getElementById('resetStatus');
+
+        if (btn) {
+          btn.addEventListener('click', async () => {
+            statusText.style.color = '#f0ad4e';
+            statusText.innerText = 'Wiping tables and generating seed rows...';
+
+            try {
+              const response = await fetch('/api/reset-db', { method: 'POST' });
+              const data = await response.json();
+              
+              if (response.ok) {
+                statusText.style.color = '#5cb85c';
+                statusText.innerText = '✅ Success: ' + data.message;
+              } else {
+                statusText.style.color = '#d9534f';
+                statusText.innerText = '❌ Error: ' + (data.details || data.error);
+              }
+            } catch (error) {
+              statusText.style.color = '#d9534f';
+              statusText.innerText = '❌ Connection failed. Check your Node backend terminal execution.';
+            }
+          });
+        } else {
+          console.error("Could not find the resetDbButton element on the DOM.");
+        }
+      });
+    </script>
+
+
+  </body>
+</html>
