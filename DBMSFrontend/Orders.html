@@ -23,7 +23,21 @@ Orders.html by Mason Antram
       <a href="/Orders.html"> Orders </a>
       <a href="/AddOrderDetails.html"> Add Order Details </a>
     </nav>
-
+    
+    <div class="page">
+      <h2>Current Orders</h2>
+      <table id="DBtable">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Order Date</th>
+            <th>Total Cost</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTableBody"></tbody>
+      </table>
+    </div>
 
     <div class="page" id="addOrderForm">
       <h2>Add Order</h2>
