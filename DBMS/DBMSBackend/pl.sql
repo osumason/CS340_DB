@@ -1,6 +1,7 @@
-
-
-
+-- CS340 Project Step 3
+-- Stored Procedures for CUD operations 
+-- Group Members: Swathi Pappoppula + Mason Antram
+-- All work is original
 
 DELIMITER //
 
