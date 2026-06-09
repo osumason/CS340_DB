@@ -16,7 +16,7 @@ AI Citations:
 2) Date: May 2026
 3) Originality: Adapted from AI-generated suggestions
 4) Source: https://gemini.google.com
-
+*/
 
 
 require('dotenv').config();
