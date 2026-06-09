@@ -5,7 +5,6 @@
 -- 1) Scope: Entire pl.sql file — all stored procedures (sp_insert_*, sp_update_*, sp_delete_*)
 -- 2) Date: Spring 2026
 -- 3) Originality: Original work by Swathi Pappoppula and Mason Antram
--- 4) Source: N/A (team-authored)
 
 DELIMITER //
 
