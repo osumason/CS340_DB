@@ -2,22 +2,30 @@
 app.js — Express server and API routes
 Team: Swathi Pappoppula & Mason Antram
 
-AI Citations:
+Citation:
 1) Scope: DELETE /api/vendors/:id route — foreign-key constraint error handling (ER_ROW_IS_REFERENCED_2)
 2) Date: May 2026
-3) Originality: Adapted from AI-generated suggestions
+3) Originality: Adapted from AI-generated suggestions; integrated into existing Express routes by the project team
+4) Source: https://gemini.google.com
 
+Citation:
 1) Scope: Dropdown API routes — GET /api/customers/dropdown, /api/orders/dropdown, /api/vendors/dropdown
 2) Date: May 2026
-3) Originality: Adapted from AI-generated suggestions
+3) Originality: Adapted from AI-generated suggestions; integrated into existing Express routes by the project team
 4) Source: https://gemini.google.com
 
+Citation:
 1) Scope: POST /api/reset-db route — reads ddl.sql and re-executes schema/seed statements
 2) Date: May 2026
-3) Originality: Adapted from AI-generated suggestions
+3) Originality: Adapted from AI-generated suggestions; integrated and extended by the project team
 4) Source: https://gemini.google.com
-*/
 
+Citation:
+1) Scope: All other routes, server setup, and middleware
+2) Date: Spring 2026
+3) Originality: Based on the CS 340 starter code, with the exception of entity-specific routes, stored procedure calls, and M:N relationship handling written by the project team
+4) Source: CS 340 course starter code (Oregon State University)
+*/
 
 require('dotenv').config();
 const fs = require('fs');
