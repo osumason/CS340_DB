@@ -16,24 +16,25 @@ Citation:
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Products</title>
-    <link rel="stylesheet" href="./App.css">
-  </head>
 
-  <body>
-    <nav class="navBar">
-      <a href="/"> Home </a>
-      <a href="/Customers.html"> Customers </a>
-      <a href="/Vendors.html"> Vendors </a>
-      <a href="/Products.html"> Products </a>
-      <a href="/Orders.html"> Orders </a>
-      <a href="/AddOrderDetails.html"> Add Order Details </a>
-    </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products</title>
+  <link rel="stylesheet" href="./App.css">
+</head>
 
-  
+<body>
+  <nav class="navBar">
+    <a href="/"> Home </a>
+    <a href="/Customers.html"> Customers </a>
+    <a href="/Vendors.html"> Vendors </a>
+    <a href="/Products.html"> Products </a>
+    <a href="/Orders.html"> Orders </a>
+    <a href="/AddOrderDetails.html"> Add Order Details </a>
+  </nav>
+
+
   <div class="page">
     <h2>Current Products</h2>
     <table id="DBtable">
@@ -50,7 +51,7 @@ Citation:
       <tbody id="productsTableBody"></tbody>
     </table>
   </div>
- 
+
   <div class="page">
     <h2>Add Product</h2>
     <form class="form" id="addProductForm">
@@ -67,7 +68,7 @@ Citation:
     </form>
     <p id="addMessage" style="margin-top: 12px; font-weight: bold; text-align: center;"></p>
   </div>
- 
+
   <div class="page">
     <h2>Update Product</h2>
     <form class="form" id="updateProductForm">
@@ -85,7 +86,7 @@ Citation:
     </form>
     <p id="updateMessage" style="margin-top: 12px; font-weight: bold; text-align: center;"></p>
   </div>
- 
+
   <div class="page">
     <h2>Delete Product</h2>
     <p class="adminInstruction">Note: products referenced in existing order details cannot be deleted.</p>
@@ -95,21 +96,21 @@ Citation:
     </form>
     <p id="deleteMessage" style="margin-top: 12px; font-weight: bold;"></p>
   </div>
- 
+
   <script>
-    // READ: load and display all products
+    // Read Products table
     async function loadProducts() {
       try {
         const response = await fetch('/api/products');
         const products = await response.json();
         const tbody = document.getElementById('productsTableBody');
         tbody.innerHTML = '';
- 
+
         if (!products || products.length === 0) {
           tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red; padding: 10px;">⚠️ No database records found. Go to Home page and click Reset Database.</td></tr>`;
           return;
         }
- 
+
         products.forEach(p => {
           tbody.innerHTML += `
             <tr>
@@ -128,22 +129,22 @@ Citation:
         tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red; padding: 10px;">❌ Failed to reach backend API. Check node server logs.</td></tr>`;
       }
     }
- 
-    // DROPDOWN: populate vendor selects for add and update forms
+
+    // Dropdown for Vendor selection
     async function loadVendorDropdowns() {
       try {
         const response = await fetch('/api/vendors/dropdown');
         const vendors = await response.json();
- 
+
         const addSelect = document.getElementById('addVendorID');
         const updateSelect = document.getElementById('updateVendorID');
- 
+
         vendors.forEach(v => {
           const addOption = document.createElement('option');
           addOption.value = v.vendorID;
           addOption.textContent = v.vendorName;
           addSelect.appendChild(addOption);
- 
+
           const updateOption = document.createElement('option');
           updateOption.value = v.vendorID;
           updateOption.textContent = v.vendorName;
@@ -153,13 +154,19 @@ Citation:
         console.error("❌ Error loading vendor dropdown:", err);
       }
     }
- 
-    // CREATE
+
+    // INITIALIZE event listener
+    window.addEventListener('DOMContentLoaded', () => {
+      loadProducts();
+      loadVendorDropdowns();
+    });
+
+    // CREATE event listener
     document.getElementById('addProductForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const msgElement = document.getElementById('addMessage');
       msgElement.innerText = '';
- 
+
       const productData = {
         productName: document.getElementById('addName').value,
         department: document.getElementById('addDepartment').value,
@@ -167,7 +174,7 @@ Citation:
         stockQuantity: document.getElementById('addStockQuantity').value,
         vendorID: document.getElementById('addVendorID').value
       };
- 
+
       try {
         const response = await fetch('/api/products', {
           method: 'POST',
@@ -175,7 +182,7 @@ Citation:
           body: JSON.stringify(productData)
         });
         const result = await response.json();
- 
+
         if (response.ok) {
           msgElement.style.color = '#5cb85c';
           msgElement.innerText = `✅ Success: Product added successfully!`;
@@ -191,13 +198,13 @@ Citation:
         msgElement.innerText = '❌ Network request failed to communicate with server.';
       }
     });
- 
-    // UPDATE
+
+    // UPDATE event listener
     document.getElementById('updateProductForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const msgElement = document.getElementById('updateMessage');
       msgElement.innerText = '';
- 
+
       const productID = document.getElementById('updateID').value;
       const productData = {
         productName: document.getElementById('updateName').value,
@@ -206,7 +213,7 @@ Citation:
         stockQuantity: document.getElementById('updateQuantity').value,
         vendorID: document.getElementById('updateVendorID').value
       };
- 
+
       try {
         const response = await fetch(`/api/products/${productID}`, {
           method: 'PUT',
@@ -214,7 +221,7 @@ Citation:
           body: JSON.stringify(productData)
         });
         const result = await response.json();
- 
+
         if (response.ok) {
           msgElement.style.color = '#5cb85c';
           msgElement.innerText = `✅ Success: Product ${productID} updated!`;
@@ -230,18 +237,18 @@ Citation:
         msgElement.innerText = '❌ Network request failed to communicate with server.';
       }
     });
- 
-    // DELETE
+
+    // DELETE event listener
     document.getElementById('deleteProductForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const productID = document.getElementById('deleteID').value;
       const msgElement = document.getElementById('deleteMessage');
       msgElement.innerText = '';
- 
+
       try {
         const response = await fetch(`/api/products/${productID}`, { method: 'DELETE' });
         const result = await response.json();
- 
+
         if (response.ok) {
           msgElement.style.color = '#5cb85c';
           msgElement.innerText = `✅ Success: ${result.message}`;
@@ -256,13 +263,8 @@ Citation:
         msgElement.innerText = '❌ Request network communication failed.';
       }
     });
- 
-    // INITIALIZE
-    window.addEventListener('DOMContentLoaded', () => {
-      loadProducts();
-      loadVendorDropdowns();
-    });
+
   </script>
 </body>
- 
+
 </html>

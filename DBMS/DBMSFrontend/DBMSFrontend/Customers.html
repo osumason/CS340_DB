@@ -1,10 +1,10 @@
 <!--
-Customers.html — Mason Antram
+Customers.html — Mason Antram and Swathi Pappoppula
 
 Citation:
-1) Scope: Inline <script> block (loadCustomers, add/update/delete form event listeners, fetch calls to /api/customers)
-2) Date: May 28, 2026
-3) Originality: Adapted from Google Gemini-generated JavaScript; modified and integrated by the project team
+1) Scope: Using IDs on forms to link them to the event listeners
+2) Date: June 8, 2026
+3) Originality: Adapted from Google Gemini-generated JavaScript
 4) Source: https://gemini.google.com
 
 Citation:
@@ -118,12 +118,11 @@ Citation:
 
     // CREATE event listener
     document.getElementById('addCustomerForm').addEventListener('submit', async (e) => {
-      e.preventDefault(); // Prevents the browser from reloading the page!
+      e.preventDefault(); 
 
       const msgElement = document.getElementById('addMessage');
       msgElement.innerText = '';
 
-      // Bundle up the form field values into an object matching your DML variables
       const customerData = {
         customerName: document.getElementById('addName').value,
         phoneNumber: document.getElementById('addPhone').value,
@@ -131,7 +130,6 @@ Citation:
       };
 
       try {
-        // Send a POST request containing JSON data to your backend API route
         const response = await fetch('/api/customers', {
           method: 'POST',
           headers: {
@@ -146,10 +144,8 @@ Citation:
           msgElement.style.color = '#5cb85c';
           msgElement.innerText = `✅ Success: Customer added successfully!`;
 
-          // Clear out the input boxes for the next entry
           document.getElementById('addCustomerForm').reset();
 
-          // Re-fetch the live table rows dynamically so the new row displays instantly!
           await loadCustomers();
         } else {
           msgElement.style.color = '#d9534f';

@@ -8,22 +8,29 @@ Citation:
 4) Source: https://gemini.google.com
 
 Citation:
+1) Scope: Truncating the time/date stamp
+2) Date: 6/8/2026
+3) Originality: Adapted from Google Gemini-generated JavaScript
+4) Source: https://gemini.google.com
+
+Citation:
 1) Scope: HTML structure, navigation, forms, and table markup
 2) Date: Spring 2026
 3) Originality: Original work by Mason Antram
 4) Source: N/A (team-authored)
+
 -->
 
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Orders</title>
   <link rel="stylesheet" href="./App.css">
 </head>
- 
+
 <body>
   <nav class="navBar">
     <a href="/"> Home </a>
@@ -33,7 +40,7 @@ Citation:
     <a href="/Orders.html"> Orders </a>
     <a href="/AddOrderDetails.html"> Add Order Details </a>
   </nav>
- 
+
   <div class="page">
     <h2>Current Orders</h2>
     <table id="DBtable">
@@ -48,7 +55,7 @@ Citation:
       <tbody id="ordersTableBody"></tbody>
     </table>
   </div>
- 
+
   <div class="page">
     <h2>Add Order</h2>
     <p class="adminInstruction">Orders are transaction records and cannot be modified or deleted after creation.</p>
@@ -64,27 +71,27 @@ Citation:
     </form>
     <p id="addMessage" style="margin-top: 12px; font-weight: bold; text-align: center;"></p>
   </div>
- 
+
   <script>
-    // READ: load and display all orders
+    // Read Orders table
     async function loadOrders() {
       try {
         const response = await fetch('/api/orders');
         const orders = await response.json();
         const tbody = document.getElementById('ordersTableBody');
         tbody.innerHTML = '';
- 
+
         if (!orders || orders.length === 0) {
           tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red; padding: 10px;">⚠️ No database records found. Go to Home page and click Reset Database.</td></tr>`;
           return;
         }
- 
+
         orders.forEach(o => {
           tbody.innerHTML += `
             <tr>
               <td style="padding: 8px;">${o.orderID}</td>
               <td style="padding: 8px;">${o.customerName}</td>
-              <td style="padding: 8px;">${o.orderDate}</td>
+              <td style="padding: 8px;">${new Date(o.orderDate).toLocaleDateString('en-CA')}</td>
               <td style="padding: 8px;">$${parseFloat(o.totalCost).toFixed(2)}</td>
             </tr>
           `;
@@ -95,14 +102,14 @@ Citation:
         tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:red; padding: 10px;">❌ Failed to reach backend API. Check node server logs.</td></tr>`;
       }
     }
- 
-    // DROPDOWN: populate customer select for add form
+
+    // Dropdown for customer selection
     async function loadCustomerDropdown() {
       try {
         const response = await fetch('/api/customers/dropdown');
         const customers = await response.json();
         const select = document.getElementById('addCustomerID');
- 
+
         customers.forEach(c => {
           const option = document.createElement('option');
           option.value = c.customerID;
@@ -113,19 +120,25 @@ Citation:
         console.error("❌ Error loading customer dropdown:", err);
       }
     }
- 
-    // CREATE
+
+    // INITIALIZE event listener
+    window.addEventListener('DOMContentLoaded', () => {
+      loadOrders();
+      loadCustomerDropdown();
+    });
+
+    // CREATE event listener
     document.getElementById('addOrderForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const msgElement = document.getElementById('addMessage');
       msgElement.innerText = '';
- 
+
       const orderData = {
         customerID: document.getElementById('addCustomerID').value,
         orderDate: document.getElementById('addOrderDate').value,
         totalCost: document.getElementById('addTotalCost').value
       };
- 
+
       try {
         const response = await fetch('/api/orders', {
           method: 'POST',
@@ -133,7 +146,7 @@ Citation:
           body: JSON.stringify(orderData)
         });
         const result = await response.json();
- 
+
         if (response.ok) {
           msgElement.style.color = '#5cb85c';
           msgElement.innerText = `✅ Success: Order added successfully!`;
@@ -151,13 +164,8 @@ Citation:
         msgElement.innerText = '❌ Network request failed to communicate with server.';
       }
     });
- 
-    // INITIALIZE
-    window.addEventListener('DOMContentLoaded', () => {
-      loadOrders();
-      loadCustomerDropdown();
-    });
+
   </script>
 </body>
- 
+
 </html>
