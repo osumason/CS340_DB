@@ -1,10 +1,21 @@
-// app.js
-// By Mason Antram and Swathi Pappoppula 6/8/2026
+/*
+app.js — Express server and API routes
+Team: Swathi Pappoppula & Mason Antram
 
+AI Citations:
+1) Scope: DELETE /api/vendors/:id route — foreign-key constraint error handling (ER_ROW_IS_REFERENCED_2)
+2) Date: May 2026
+3) Originality: Adapted from AI-generated suggestions
 
-//Sources Cited:
-// - Google Gemini: DELETE vendor function to enforce foreign key constriaint
-// - Google Gemini: Dropdown functions for Orders page 
+1) Scope: Dropdown API routes — GET /api/customers/dropdown, /api/orders/dropdown, /api/vendors/dropdown
+2) Date: May 2026
+3) Originality: Adapted from AI-generated suggestions
+4) Source: https://gemini.google.com
+
+1) Scope: POST /api/reset-db route — reads ddl.sql and re-executes schema/seed statements
+2) Date: May 2026
+3) Originality: Adapted from AI-generated suggestions
+4) Source: https://gemini.google.com
 
 
 
