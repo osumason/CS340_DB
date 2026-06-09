@@ -55,64 +55,6 @@ The system demonstrates full CRUD functionality across multiple related entities
 
 ---
 
-## Installation & Setup
-
-### Prerequisites
-
-* Node.js (v18 or newer)
-* npm
-* MySQL or MariaDB
-
-### Install Dependencies
-
-```bash
-npm install
-```
-
-Required packages:
-
-```text
-express
-mysql2
-dotenv
-cors
-```
-
-### Configure Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-DB_HOST=your-database-host
-DB_USER=your-username
-DB_PASS=your-password
-DB_NAME=your-database-name
-PORT=5050
-```
-
-### Initialize the Database
-
-Execute the following files in order:
-
-1. `ddl.sql` – Creates tables and inserts sample data
-2. `pl.sql` – Creates stored procedures
-
-`dml.sql` is included for reference and documentation purposes.
-
-### Run the Application
-
-```bash
-node app.js
-```
-
-Open the application at:
-
-```text
-http://classwork.engr.oregonstate.edu:5050/
-```
-
----
-
 ## Features
 
 ### Customers
@@ -172,3 +114,8 @@ This project is based on the Oregon State University CS340 Starter Application a
 * Product page data-loading functions
 * Database reset functionality
 * Initial CSS styling suggestions
+
+### ChatGPT (OpenAI) (June 2026) 
+* Used to suggest improvements to the organization and presentation of the README. 
+
+All project implementation, database design, SQL code, application logic, and technical content remain the work of the project team unless otherwise cited.
