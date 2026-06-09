@@ -19,12 +19,6 @@ Citation:
 2) Date: May 2026
 3) Originality: Adapted from AI-generated suggestions; integrated and extended by the project team
 4) Source: https://gemini.google.com
-
-Citation:
-1) Scope: All other routes, server setup, and middleware
-2) Date: Spring 2026
-3) Originality: Based on the CS 340 starter code, with the exception of entity-specific routes, stored procedure calls, and M:N relationship handling written by the project team
-4) Source: CS 340 course starter code (Oregon State University)
 */
 
 require('dotenv').config();
