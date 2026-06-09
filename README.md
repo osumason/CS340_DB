@@ -19,7 +19,7 @@ The system demonstrates full CRUD functionality across multiple related entities
 
 ## Live Website
 
-**Hosted Application:** *Add deployment URL here before submission*
+**Hosted Application:** *http://classwork.engr.oregonstate.edu:5050/*
 
 ---
 
