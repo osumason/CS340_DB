@@ -96,16 +96,6 @@ The system demonstrates full CRUD functionality across multiple related entities
 
 ## Citations 
 
-### Adapted from CS340 Starter Code
-
-* Express server structure
-* Database connection pattern
-* Static file serving
-* REST API organization
-* General CRUD page architecture
-
-### AI-Assisted Components
-
 #### Google Gemini (May 2026)
 * Customer page data-loading functions
 * Vendor page data-loading functions
