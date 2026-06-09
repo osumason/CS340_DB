@@ -268,3 +268,7 @@ Citations below mirror the headers in each source file. Non-original work is lab
 2) Date: June 2026
 3) Originality: Adapted with Cursor AI assistance
 4) Source: https://cursor.com
+
+---
+
+All project implementation, database design, SQL code, application logic, and technical content remain the work of the project team unless otherwise cited.
