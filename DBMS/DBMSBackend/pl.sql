@@ -1,7 +1,11 @@
--- CS340 Project Step 3
--- Stored Procedures for CUD operations 
--- Group Members: Swathi Pappoppula + Mason Antram
--- All work is original
+-- CS340 Portfolio Project — Stored Procedures (pl.sql)
+-- Team: Swathi Pappoppula & Mason Antram
+--
+-- Citation:
+-- 1) Scope: Entire pl.sql file — all stored procedures (sp_insert_*, sp_update_*, sp_delete_*)
+-- 2) Date: Spring 2026
+-- 3) Originality: Original work by Swathi Pappoppula and Mason Antram
+-- 4) Source: N/A (team-authored)
 
 DELIMITER //
 
